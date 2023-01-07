@@ -1,12 +1,77 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Hello World!</title>
+<html lang="en" data-bs-theme="dark">
 
-  </head>
-  <body>
-    <h1>💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mobile Device Inventory</title>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="navbar fixed-top navbar-expand-xxl navbar-light">
+        <div class="container-fluid">
+          <label class="navbar-brand">Mobile Devices</label>
+          <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#loginModal"
+            id="loginButton">Login</button>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row mx-auto">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">User</th>
+            <th scope="col">Model</th>
+            <th scope="col">ICCID</th>
+            <th scope="col">IMEI</th>
+            <th scope="col">Serial</th>
+            <th scope="col">Upgrade Date</th>
+            <th scope="col">Company</th>
+          </tr>
+        </thead>
+        <tbody id="deviceTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Login</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-danger fade show" id="invalidLoginMessage" role="alert" hidden>
+            Please provide a valid email address and password.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">&times;</button>
+          </div>
+          <div class="mb-3">
+            <label for="userFormControl" class="form-label">Username</label>
+            <input type="text" class="form-control" id="userFormControl" placeholder="Username" autocomplete="off"
+              name="username" required />
+          </div>
+          <div class="mb-3">
+            <label for="passwordFormControlInput" class="form-label">Password</label>
+            <input type="password" class="form-control" id="passwordFormControl" placeholder="Password"
+              autocomplete="off" name="password" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="loginSubmitButton">Sign in</button>
+        </div>
+      </div>
+    </div>
+
+</body>
+
 </html>
