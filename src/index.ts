@@ -56,8 +56,9 @@ import * as mysql from 'mysql';
 import { resourceLimits } from 'worker_threads';
 
 let connection: mysql.Connection;
+
 // Triggered in response to SQL database credentials submission.
-ipcMain.handle('dbLogin', (event: Event, username: string, password: string) => {
+ipcMain.handle('db:login', (event: Event, username: string, password: string) => {
   connection = mysql.createConnection({
     host: 'localhost',
     user: username,
@@ -85,8 +86,44 @@ ipcMain.handle('dbLogin', (event: Event, username: string, password: string) => 
 });
 
 // Triggered in response to SQL-database connection termination-request.
-ipcMain.handle('dbLogout', (event: Event) => {
+ipcMain.handle('db:logout', (event: Event) => {
   return connection.end((err) => {
     console.log(err?err : "Connection closed");
   });
+});
+
+// Handler for loading table entries on table:load event.
+ipcMain.handle('table:load', (event: Event) => {
+
+  let getResults = function (callback: Function) {
+    connection.query('SELECT * FROM devices', function (error, results, fields) {
+      if (error) callback(error);
+      
+      callback(results);
+    })
+  };
+
+  let queryResult = new Promise((resolve: Function, reject: Function) => {
+    getResults(function (results: string) {
+      resolve(results);
+    });
+  });
+  return queryResult;
+});
+
+ipcMain.handle('db:getUsernames', (event: Event) => {
+  let getUsers = function (callback: Function) {
+    connection.query('SELECT * FROM users', function (error, results, fields) {
+      if (error) callback(error);
+      
+      callback(results);
+    });
+  };
+
+  let queryResult = new Promise((resolve: Function, reject: Function) => {
+    getUsers(function (results: string) {
+      resolve(results);
+    });
+  });
+  return queryResult;
 });

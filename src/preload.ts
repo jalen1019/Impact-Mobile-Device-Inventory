@@ -3,10 +3,20 @@
 import { contextBridge, ipcRenderer } from 'electron';
 
 contextBridge.exposeInMainWorld('mysql', {
-    dbLogin: async (username: string, password: string) => {
-        return await ipcRenderer.invoke('dbLogin', username, password);
+    db: {
+        login: async (username: string, password: string) => {
+            return await ipcRenderer.invoke('db:login', username, password);
+        },
+        logout: () => {
+            ipcRenderer.invoke('db:logout');
+        },
+        getUsernames: async () => {
+            return await ipcRenderer.invoke('db:getUsernames');
+        },
     },
-    dbLogout: () => {
-        ipcRenderer.invoke('dbLogout');
+    table: { 
+        load: () => {
+            return ipcRenderer.invoke('table:load');
+        },
     }
 })

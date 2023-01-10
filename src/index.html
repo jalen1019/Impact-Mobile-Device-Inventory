@@ -7,10 +7,10 @@
   <title>Mobile Device Inventory</title>
 </head>
 
-<body>
+<body class="mx-0 min-vw-100">
   <div class="container-fluid">
     <div class="row">
-      <nav class="navbar fixed-top navbar-expand-xxl navbar-light">
+      <nav class="navbar navbar-default">
         <div class="container-fluid">
           <label class="navbar-brand">Mobile Devices</label>
           <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#loginModal"
@@ -20,7 +20,12 @@
     </div>
   </div>
   <div class="container-fluid">
-    <div class="row mx-auto">
+    <div class="row">
+      <div class="col align-self-end">
+        <button type="button" class="btn btn-primary float-end" id="addDeviceBtn" data-bs-toggle="modal" data-bs-target="#addDeviceModal" hidden>Add Device</button>
+      </div>
+    </div>
+    <div class="row">
       <table class="table">
         <thead>
           <tr>
@@ -39,9 +44,9 @@
     </div>
   </div>
 
-  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="loginModalLabel">Login</h5>
@@ -50,14 +55,14 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="alert alert-danger fade show" id="invalidLoginMessage" role="alert" hidden>
+          <div class="alert alert-danger fade show mb-3 d-none" id="invalidLoginMessage" role="alert">
             Please provide a valid email address and password.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">&times;</button>
+            <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
           <div class="mb-3">
             <label for="userFormControl" class="form-label">Username</label>
             <input type="text" class="form-control" id="userFormControl" placeholder="Username" autocomplete="off"
-              name="username" required />
+              name="username" tabindex="-1" required />
           </div>
           <div class="mb-3">
             <label for="passwordFormControlInput" class="form-label">Password</label>
@@ -71,7 +76,56 @@
         </div>
       </div>
     </div>
+  </div>
 
+  <div class="modal fade" id="addDeviceModal" tabindex="-1" aria-labelledby="addDeviceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addDeviceModalLabel">Add Device</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="userDeviceFieldInput">User</label>
+            <input type="text" class="form-control" id="userDeviceFieldInput" placeholder="Username" autocomplete="off" list="userOptions" required />
+            <datalist id="usernameDatalistOptions"></datalist>
+          </div>
+          <div class="mb-3">
+            <label for="modelFieldInput">Model</label>
+            <input type="text" class="form-control" id="modelFieldInput" placeholder="Model" autocomplete="off"/>
+          </div>
+          <div class="mb-3">
+            <label for="ICCIDFieldInput">ICCID</label>
+            <input type="text" class="form-control" id="ICCIDFieldInput" placeholder="ICCID" autocomplete="off"/>
+          </div>
+          <div class="mb-3">
+            <label for="IMEIDFieldInput">IMEI</label>
+            <input type="text" class="form-control" id="IMEIDFieldInput" placeholder="IMEI" autocomplete="off"/>
+          </div>
+          <div class="mb-3">
+            <label for="serialFieldInput">Serial</label>
+            <input type="text" class="form-control" id="serialFieldInput" placeholder="Serial" autocomplete="off"/>
+          </div>
+          <div class="mb-3">
+            <label for="upgradeDateFieldInput">Upgrade Date</label>
+            <input type="text" class="form-control" id="upgradeDateFieldInput" placeholder="Upgrade Date" autocomplete="off"/>
+          </div>
+          <div class="mb-3">
+            <label for="companyNameFieldInput">Company Name</label>
+            <input type="text" class="form-control" id="companyNameFieldInput" placeholder="Company Name" autocomplete="off"/>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="deviceSubmitBtn">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </body>
 
 </html>
